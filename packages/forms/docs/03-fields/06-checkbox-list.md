@@ -168,18 +168,18 @@ CheckboxList::make('technologies')
 
 > If you're building a form inside your Livewire component, make sure you have set up the [form's model](../adding-a-form-to-a-livewire-component#setting-a-form-model). Otherwise, Filament doesn't know which model to use to retrieve the relationship from.
 
-You may employ the `relationship()` method of the `CheckboxList` to point to a `BelongsToMany` relationship. Filament will load the options from the relationship, and save them back to the relationship's pivot table when the form is submitted. The `titleAttribute` is the name of a column that will be used to generate a label for each option:
+You may employ the `relationship()` method of the `CheckboxList` to point to a `BelongsToMany` relationship. Filament will load the options from the relationship, and save them back to the relationship's pivot table when the form is submitted. The second arguments `titleAttribute` is the name of a column that will be used to generate a label for each option:
 
 ```php
 use Filament\Forms\Components\CheckboxList;
 
 CheckboxList::make('technologies')
-    ->relationship(titleAttribute: 'name')
+    ->relationship('technologies', 'name')
 ```
 
 ### Customizing the relationship query
 
-You may customize the database query that retrieves options using the `modifyOptionsQueryUsing` parameter of the `relationship()` method:
+You may customize the database query that retrieves options using the `modifyOptionsQueryUsing` thris parameters of the `relationship()` method:
 
 ```php
 use Filament\Forms\Components\CheckboxList;
@@ -187,8 +187,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 CheckboxList::make('technologies')
     ->relationship(
-        titleAttribute: 'name',
-        modifyQueryUsing: fn (Builder $query) => $query->withTrashed(),
+        'technologies',
+        'label',
+        fn (Builder $query) => $query->withTrashed(),
     )
 ```
 
